@@ -3,6 +3,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+// HERE WE GET 5 DIFFERENT DATA FROM SQL TABLES
 export const getDashboardMetrics = async (
   req: Request,
   res: Response
@@ -43,7 +44,7 @@ export const getDashboardMetrics = async (
     const expenseByCategorySummary = expenseByCategorySummaryRaw.map(
       (item) => ({
         ...item,
-        amount: item.amount.toLocaleString(),
+        amount: item.amount.toString(),
       })
     );
 
