@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
-import { request } from "http";
 
 const prisma = new PrismaClient();
 
@@ -31,7 +30,7 @@ export const createProduct = async (
 ): Promise<void> => {
   try {
     const { productId, name, price, rating, stockQuantity } = request.body;
-    const product = prisma.products.create({
+    const product = await prisma.products.create({
       data: {
         productId,
         name,
@@ -40,7 +39,7 @@ export const createProduct = async (
         stockQuantity,
       },
     });
-    response.json(product);
+    response.status(201).json(product);
   } catch (error) {
     response.status(500).json({ message: `Error creating product: ${error}` });
   }
